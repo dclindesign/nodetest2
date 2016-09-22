@@ -41,28 +41,50 @@ router.delete('/deleteuser/:id', function(req, res) {
         res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
     });
 });
+/*
+ * UPDATE to deleteuser.
 
+router.updateuser('/updateuser/:id', function(req, res) {
+    var db = req.db;
+    var collection = db.get('userlist');
+    var userToUpdate = req.params.id;
+    collection.update({ '_id' : userToUpdate }, function(err) {
+        res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
+    });
+});
+*/
 /*
  * PUT to updateuser.
  */
-/*
- router.all('/updateuser/:id', function(req, res) {
-   var db = req.db;
-   var collection = db.get('userlist');
-   var userToUpdate = req.params.id;
-   console.log("ID to update:" + userToUpdate);
-   collection.update({_id : userToUpdate }, function(err) {
-       res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
-   });
+ /*
+router.updateuser = function(db) {
+   return function(req, res) {
+     var db = req.db;
+     var collection = db.get('userlist');
+     var userToUpdate = req.params.id;
+     collection.update({ '_id' : userToUpdate }, function(err) {
+         res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
+     });
+   };
+ };
+ */
+
+ router.put('/updateuser/:id', function(req, res) {
+var db = req.db
+var userToUpdate = req.params.id;
+var doc = { $set: req.body};
+db.collection('userlist').updateById(userToUpdate, doc ,function(err, result) {
+res.send((result === 1) ? { msg: '' } : { msg:'error: ' + err });
 });
-*/
+});
+/*
 router.put('/updateuser/:id', function(req, res) {
-  var db = req.db
-  var userToUpdate = req.params.id;
-  var doc = { $set: req.body};
+  var db = req.db;
   var collection = db.get('userlist');
-  collection.update({'_id' : userToUpdate },doc ,function(err, result) {
-    res.send((result === 1) ? { msg: '' } : { msg:'error: ' + err });
+  var userToUpdate = req.params.id;
+  collection.update({ '_id' : userToUpdate }, function(err) {
+      res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
   });
 });
+*/
 module.exports = router;

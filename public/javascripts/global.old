@@ -72,7 +72,7 @@ function showUserInfo(event) {
 
     // Retrieve username from link rel attribute
     var thisUserName = $(this).attr('rel');
-console.log(thisUserName);
+
     // Get Index of object based on id value
     var arrayPosition = userListData.map(function(arrayItem) { return arrayItem.username; }).indexOf(thisUserName);
     // Get our User Object
@@ -263,29 +263,18 @@ console.log(thisUserName);
              alert(JSON.stringify(updatedFields));
              //alert(updatedFields)
              // do the AJAX
-             console.log("ajax starting");
-             /*$.ajax({
+             $.ajax({
                type: 'PUT',
-               dataType: 'JSON',
                data: updatedFields,
-               timeout: 5000,
           // url: '/users/updateuser/' + $(this).attr('rel'),
              url: '/users/updateuser/' + _id
 
-           }).done(function (response) {
-*/
-$.ajax({
-    type: 'PUT',
-    contentType: 'application/json',
-    dataType: 'json',
-    url: '/users/updateuser/' + _id,
-    data: JSON.stringify(updatedFields)
-}).done(function( response ) {
+             }).done(function (response) {
 
                // Check for a successful (blank) response
                if (response.msg === '') {
                  togglePanels();
-                 console.log("updated success" + updatedFields);
+                 console.log("updated success");
                }
                else {
                  alert('Error: ' + response.msg);
